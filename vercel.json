@@ -1,0 +1,21 @@
+{
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "command": "npm run build",
+    "outputDirectory": "dist"
+  }
+}
