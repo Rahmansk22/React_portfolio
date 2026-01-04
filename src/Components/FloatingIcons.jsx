@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { 
   SiHtml5, 
@@ -34,35 +35,57 @@ const icons = [
   { name: "PostgreSQL", IconComponent: SiPostgresql, color: "#336791" }
 ];
 
-function FloatingIcons({ countMultiplier = 2.5, styleOverride = {} }) {
-  // Duplicate icons array based on countMultiplier to increase number of icons rendered
+
+function FloatingIcons({ countMultiplier = 0.7, styleOverride = {} }) {
+  // Use fewer icons on mobile
+  let actualMultiplier = countMultiplier;
+  if (typeof window !== "undefined" && window.innerWidth < 640) {
+    actualMultiplier = 0.35;
+  }
   const extendedIcons = [];
-  for (let i = 0; i < countMultiplier; i++) {
+  for (let i = 0; i < actualMultiplier; i++) {
     extendedIcons.push(...icons);
   }
 
+  const parentRef = React.useRef(null);
   return (
-    <div className="border-2 border-teal-500 rounded-lg" style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0, zIndex: 20, pointerEvents: "none", ...styleOverride }}>
+    <div
+      ref={parentRef}
+      className="border-2 border-teal-500 rounded-lg"
+      style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0, zIndex: 20, pointerEvents: "none", ...styleOverride }}
+    >
       {extendedIcons.map((icon, index) => {
         const size = 20 + Math.random() * 40;
-        const direction = Math.random() < 0.5 ? 1 : -1; // Randomly choose left-to-right or right-to-left
+        const startTop = 10 + Math.random() * 80;
+        const startLeft = 10 + Math.random() * 80;
+        // Generate random keyframes for floating effect
+        const yKeyframes = [0, -20 + Math.random() * 40, 20 - Math.random() * 40, 0];
+        const xKeyframes = [0, 20 - Math.random() * 40, -20 + Math.random() * 40, 0];
+        const delay = Math.random() * 2;
+        const duration = 4 + Math.random() * 4;
         const style = {
-          top: `${10 + Math.random() * 80}%`,
-          left: `${10 + Math.random() * 80}%`,
+          top: `${startTop}%`,
+          left: `${startLeft}%`,
           position: "absolute",
           fontSize: size,
           opacity: 1,
           userSelect: "none",
-          filter: "drop-shadow(0 0 4px rgba(255, 255, 255, 0.7))" // subtle glow for visibility
+          filter: "drop-shadow(0 0 4px rgba(255, 255, 255, 0.7))"
         };
         const Icon = icon.IconComponent;
         return (
           <motion.span
             key={index}
-            style={style}
+            style={{ ...style, touchAction: "none", cursor: "grab", pointerEvents: "auto" }}
             initial={{ y: 0, x: 0 }}
-            animate={{ y: [0, -30, 0], x: [0, 15 * direction, 0] }} // move left or right randomly
-            transition={{ duration: 3 + Math.random() * 3, repeat: Infinity }}
+            animate={{ y: yKeyframes, x: xKeyframes, rotate: [0, 8, -8, 0] }}
+            transition={{ duration, repeat: Infinity, repeatType: "loop", ease: "easeInOut", delay }}
+            drag
+            dragMomentum={false}
+            dragElastic={0.18}
+            dragConstraints={parentRef}
+            whileTap={{ scale: 1.2, zIndex: 99 }}
+            whileDrag={{ zIndex: 99 }}
           >
             <Icon size={size} color={icon.color} />
           </motion.span>

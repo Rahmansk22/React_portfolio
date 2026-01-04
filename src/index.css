@@ -1,4 +1,9 @@
+
 @import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
 
 :root {
   --color-text: #ffffff;
@@ -20,10 +25,13 @@
 }
 
 .light-theme {
-  --color-text: #0a192f;
-  --color-bg: #ffffff;
+  --color-text: #e7eaf0;
+  --color-bg: #151414;
+  --color-card-bg: rgba(0, 0, 0, 0.05);
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-accent: rgba(20, 184, 166, 0.8);
+  --main-text: #374151;
   color-scheme: light;
-}
 
 a {
   font-weight: 500;
@@ -62,4 +70,77 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2.5em;
+  }
+
+  .glass-card {
+    padding: 1rem !important;
+    margin: 0.5rem !important;
+  }
+
+
+  section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .glass-card {
+    padding: 0.75rem !important;
+    margin: 0.25rem !important;
+  }
+
+
+  section {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+/* Ensure proper viewport handling */
+@media screen and (max-width: 1024px) {
+  .min-h-screen {
+    min-height: 100vh;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-block;
+  }
+}
+
+/* High DPI display support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
 }

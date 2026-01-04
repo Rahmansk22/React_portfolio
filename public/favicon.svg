@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="16" fill="url(#paint0_linear)"/>
+  <g filter="url(#glow)">
+    <circle cx="32" cy="32" r="18" fill="url(#paint1_radial)"/>
+    <text x="32" y="40" text-anchor="middle" font-size="24" font-family="Segoe UI, Arial, sans-serif" fill="#fff" font-weight="bold">R</text>
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6EE7B7"/>
+      <stop offset="1" stop-color="#3B82F6"/>
+    </linearGradient>
+    <radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientTransform="translate(32 32) scale(18)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#3B82F6" stop-opacity="0.8"/>
+    </radialGradient>
+    <filter id="glow" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>
